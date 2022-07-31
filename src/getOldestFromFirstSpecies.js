@@ -1,12 +1,23 @@
-const { employees } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
-const id = 'c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'
-
-const funcionario = (id) => data.employees.find((employe) => employe.id === id)
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-  
+  let final = ''; let escolha = ''; let max = 0;
+  data.employees.find((element) => {
+    escolha = element.id === id ? element.responsibleFor[0] : '';
+    return escolha;
+  });
+  data.species.filter((animal) => {
+    if (animal.id === escolha) {
+      animal.residents.forEach((res) => {
+        if (res.age > max) {
+          max = res.age;
+          final = Object.values(res);
+        }
+      });
+    }
+    return final;
+  });
+  return final;
 }
-console.log(getOldestFromFirstSpecies(id))
+
 module.exports = getOldestFromFirstSpecies;
